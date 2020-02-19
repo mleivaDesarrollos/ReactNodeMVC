@@ -1,17 +1,26 @@
 import React from 'react';
+import { addSelected } from '../actions/products';
+import { removeSelected } from '../actions/products';
+import { connect } from 'react-redux';
+import { Checkbox } from 'antd';
 
-export default class Producto extends React.Component {
-    render(){
-        return(
-            <li>
-                <img src={`/uploads/images/${this.props.producto.image}`} alt={this.props.producto.descripcion}/>
-                <h3>{this.props.producto.descripcion}</h3>
-                <span className="precio">{`$${this.props.producto.precio}`}</span>
-                <i 
-                    className={`far fa-check-square select ${this.props.producto.selected ? 'elegido' : ''}`}
-                    onClick={this.props.onClickSeleccionar}
-                />
-            </li>
-        )
-    }
+function Producto(props) {
+    return(
+        <li>
+            <img src={`/uploads/images/${props.producto.image}`} alt={props.producto.descripcion}/>
+            <h3>{props.producto.descripcion}</h3>
+            <span className="precio">{`$${props.producto.precio}`}</span>
+            <Checkbox
+                onChange={(e) => e.target.checked ? props.addItemToCart(props.producto.id) : props.removeItemFromCart(props.producto.id)}
+            />
+        </li>
+    )    
 }
+
+const mapStateToProps = state => ({ selected: state.selected})
+const mapDispatchToProps = dispatch => ({
+    addItemToCart: (productId) =>  dispatch(addSelected(productId)),
+    removeItemFromCart: (productId) => dispatch(removeSelected(productId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Producto);
