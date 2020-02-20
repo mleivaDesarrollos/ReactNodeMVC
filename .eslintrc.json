@@ -1,10 +1,11 @@
 {
-    "parser": "babel-eslint",
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "node": true
     },
     "extends": [
+        "plugin:react/recommended",
         "airbnb"
     ],
     "globals": {
@@ -15,31 +16,11 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "settings": {
-        "import/resolver": {
-            "webpack": {
-                "config": "./webpack/dev.js"
-            }
-        }
+        "ecmaVersion": 2018
     },
     "plugins": [
         "react"
     ],
     "rules": {
-        "react/prop-types": [
-            0
-        ],
-        "no-underscore-dangle": [
-            "error",
-            {
-                "allow": [
-                    "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"
-                ]
-            }
-        ],
-        "linebreak-style": 0
     }
 }
